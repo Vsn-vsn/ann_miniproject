@@ -32,8 +32,11 @@ Here our problem is solved using a standard Multilayer Perceptron.
 - We check the trained model.
 1) Prediction: We pass the full time grid, `t`, to the model to get the PINN's solution, `x_pred`.
 2) Analytical solution: We calculate the exact solution, `x_true`, for the given ODE using a known formula which acts as a ground truth for us to compare against.
-3) Comparison: We plot the PINN prediction and the true solution, to observe the correctness of the network against actual solution.
-    - We see that the plots perfectly overlay suggesting that our network has successfully learned the solution to the differential equation.
+3) Numerical Solution: We also compute a solution using a standard numerical ODE solver `scipy.integrate.solve_ivp` as another benchmark. 
+4) Comparison: We plot the PINN predictions (specifically the more accurate one from annealing), the analytical solution, and the numerical solution on the same graph.
+    - The plots show excellent results, with the annealed PINN prediction closely overlapping the analytical solution, indicating that the network successfully learns the solution.
+5) Quantitative Metrics: We calculated the MSE and RMSE between the predictions and the analytical solution.
+    - The results confirmed that using annealing weights yielded a significantly lower final MSE and RMSE compared to the baseline and even outperformed the standard numerical solver.
 
 # Novelty
 While the standard `total_loss` is a good beginning for many ODE problems, the training process can be improved by dynamically adjusting influence of the loss components(ic_loss, physics_loss).
